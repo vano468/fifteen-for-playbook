@@ -1,0 +1,10 @@
+files
+{
+    (source)
+    main.cpp
+}
+
+subprojects
+{
+    iwgx
+}
