@@ -1,0 +1,2 @@
+#define BOARD_SIZE 4
+#define BOARD_POINTS 40

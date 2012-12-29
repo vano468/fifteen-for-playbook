@@ -1,7 +1,9 @@
 #include "s3e.h"
 #include "IwGx.h"
 
-struct CTouchb{
+#include <design.h>
+
+struct CTouchb {
     int32 x;
     int32 y;
     bool active;
@@ -31,6 +33,7 @@ int main() {
 
 		s3ePointerRegister(S3E_POINTER_BUTTON_EVENT, (s3eCallback)SingleTouchButtonCB, NULL);
         IwGxPrintString(g_Touches.x, g_Touches.y, "Hello, World!");
+		drawBoard();
 
         IwGxFlush();
         IwGxSwapBuffers();
