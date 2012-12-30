@@ -2,6 +2,9 @@ files
 {
     (source)
     main.cpp
+    definitions.h
+    design.h
+    design.cpp
 }
 
 subprojects

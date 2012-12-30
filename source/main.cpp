@@ -1,7 +1,7 @@
 #include "s3e.h"
 #include "IwGx.h"
 
-#include <design.h>
+#include "design.h"
 
 struct CTouchb {
     int32 x;
