@@ -19,6 +19,7 @@ void SingleTouchButtonCB(s3ePointerEvent* event) {
     g_Touches.active = event->m_Pressed != 0;
     g_Touches.x = event->m_x;
     g_Touches.y = event->m_y;
+	getBoardCellByCoord(g_Touches.x, g_Touches.y);
 }
 
 int main() {
