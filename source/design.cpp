@@ -1,4 +1,5 @@
 #include "design.h"
+#include <stdio.h>
 
 void drawBoard() {
 	IwGxClear(IW_GX_COLOUR_BUFFER_F | IW_GX_DEPTH_BUFFER_F);
@@ -53,7 +54,10 @@ void drawNumbers() {
 	for (int j = 0, y = emptySpaceHeight; j < BOARD_SIZE; ++j, y += cellSize)
 		for (int i = 0, x = emptySpaceWidth; i < BOARD_SIZE; ++i, x += cellSize) {
 			IwGxPrintSetScale(8); 
-			IwGxPrintString(x, y, "12"); // need to print game->getGameBoardNum(i, j)
+			int num = game->getGameBoardNum(i, j);
+			char txt[33];
+			sprintf(txt, "%d", num);
+			IwGxPrintString(x, y, txt);
 		}
 }
 
