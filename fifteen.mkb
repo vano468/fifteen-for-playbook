@@ -5,6 +5,8 @@ files
     definitions.h
     design.h
     design.cpp
+    game.h
+    game.cpp
 }
 
 subprojects

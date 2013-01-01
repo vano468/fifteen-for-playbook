@@ -23,6 +23,8 @@ void SingleTouchButtonCB(s3ePointerEvent* event) {
 }
 
 int main() {
+	gameInit();
+
     IwGxInit();
     IwGxSetColClear(0, 0, 0xff, 0xff);
         

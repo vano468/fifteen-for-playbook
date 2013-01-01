@@ -72,3 +72,11 @@ boardCell getBoardCellByCoord(int32 x, int32 y) {
 
 	return curCell;
 }
+
+void gameInit() {
+	game = new Fifteen();
+}
+
+void gameKill() {
+	delete game;
+}
