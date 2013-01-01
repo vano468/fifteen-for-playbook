@@ -7,3 +7,11 @@ Fifteen::Fifteen() {
 			gameBoard[x][y] = k++;
 	gameBoard[BOARD_SIZE-1][BOARD_SIZE-1] = 0;
 }
+
+Fifteen::~Fifteen() {
+
+}
+
+int Fifteen::getGameBoardNum(int x, int y) {
+	return gameBoard[x][y];
+}

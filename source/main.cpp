@@ -35,13 +35,16 @@ int main() {
         IwGxClear();
 
 		s3ePointerRegister(S3E_POINTER_BUTTON_EVENT, (s3eCallback)SingleTouchButtonCB, NULL);
-        IwGxPrintString(g_Touches.x, g_Touches.y, "Hello, World!");
+        //IwGxPrintString(g_Touches.x, g_Touches.y, "Hello, World!");
 		drawBoard();
+		drawNumbers();
 
         IwGxFlush();
         IwGxSwapBuffers();
         s3eDeviceYield(0);	
     }
     IwGxTerminate();
+
+	gameKill();
     return 0;
 }

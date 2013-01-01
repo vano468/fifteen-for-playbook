@@ -12,5 +12,7 @@ struct boardCell {
 static Fifteen *game;
 
 void gameInit();
+void gameKill();
 void drawBoard();
+void drawNumbers();
 boardCell getBoardCellByCoord(int32, int32);

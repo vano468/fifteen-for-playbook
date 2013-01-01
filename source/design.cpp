@@ -37,6 +37,26 @@ void drawBoard() {
     IwGxDrawPrims(IW_GX_LINE_LIST, NULL, BOARD_POINTS);
 }
 
+void drawNumbers() {
+	int16 sFaceWidth  = (int16)s3eSurfaceGetInt(S3E_SURFACE_WIDTH);
+	int16 sFaceHeight = (int16)s3eSurfaceGetInt(S3E_SURFACE_HEIGHT);
+
+	int boardCellCount = BOARD_SIZE;
+
+	int16 boardSize = sFaceHeight > sFaceWidth ? sFaceWidth : sFaceHeight;
+	while (boardSize % 8) --boardSize; // stupid
+
+	int16 emptySpaceHeight = (sFaceHeight - boardSize) / 2;
+	int16 emptySpaceWidth  = (sFaceWidth  - boardSize) / 2;
+
+	int16 cellSize = boardSize / boardCellCount;
+	for (int j = 0, y = emptySpaceHeight; j < BOARD_SIZE; ++j, y += cellSize)
+		for (int i = 0, x = emptySpaceWidth; i < BOARD_SIZE; ++i, x += cellSize) {
+			IwGxPrintSetScale(8); 
+			IwGxPrintString(x, y, "12"); // need to print game->getGameBoardNum(i, j)
+		}
+}
+
 boardCell getBoardCellByCoord(int32 x, int32 y) {
 	int16 sFaceWidth  = (int16)s3eSurfaceGetInt(S3E_SURFACE_WIDTH);
 	int16 sFaceHeight = (int16)s3eSurfaceGetInt(S3E_SURFACE_HEIGHT);

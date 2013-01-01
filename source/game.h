@@ -5,4 +5,6 @@ class Fifteen {
 public:
 	Fifteen();
 	~Fifteen();
+	
+	int getGameBoardNum(int, int);
 };
