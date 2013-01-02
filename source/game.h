@@ -1,5 +1,5 @@
-#include <cstdlib>
-#include <ctime>
+#ifndef GAME_H
+#define GAME_H
 
 #include "definitions.h"
 
@@ -7,6 +7,7 @@ class Fifteen {
 	int gameBoard[BOARD_SIZE][BOARD_SIZE];
 	int emptyX;
 	int emptyY;
+	int state;
 
 	void moveEmptyLeft();
 	void moveEmptyRight();
@@ -19,3 +20,5 @@ public:
 	
 	int getGameBoardNum(int, int);
 };
+
+#endif //GAME_H

@@ -1,4 +1,6 @@
 #include "game.h"
+#include <cstdlib>
+#include <ctime>
 
 Fifteen::Fifteen() {
 	int k = 1;

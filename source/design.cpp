@@ -1,4 +1,5 @@
 #include "design.h"
+#include <stdio.h>
 
 void drawBoard() {
 	IwGxClear(IW_GX_COLOUR_BUFFER_F | IW_GX_DEPTH_BUFFER_F);
