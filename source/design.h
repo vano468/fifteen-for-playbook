@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "s3e.h"
 #include "IwGx.h"
 
