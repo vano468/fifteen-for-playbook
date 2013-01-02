@@ -19,6 +19,9 @@ public:
 	~Fifteen();
 	
 	int getGameBoardNum(int, int);
+	int getState() {return state;};
+	bool stateMenu() {return state == STATE_MENU;}
+	void setState(int _state) {state = _state;}
 };
 
 #endif //GAME_H

@@ -15,12 +15,18 @@ void SingleTouchMotionCB(s3ePointerMotionEvent* event) {
     g_Touches.y = event->m_y;
 }
 
+bool menu = true;
+
 void SingleTouchButtonCB(s3ePointerEvent* event) {
     g_Touches.active = event->m_Pressed != 0;
     g_Touches.x = event->m_x;
     g_Touches.y = event->m_y;
 	getBoardCellByCoord(g_Touches.x, g_Touches.y);
+	if (menu) {
+		menu = false;
+	}
 }
+
 
 int main() {
 	gameInit();
@@ -36,8 +42,13 @@ int main() {
 
 		s3ePointerRegister(S3E_POINTER_BUTTON_EVENT, (s3eCallback)SingleTouchButtonCB, NULL);
         //IwGxPrintString(g_Touches.x, g_Touches.y, "Hello, World!");
-		drawBoard();
-		drawNumbers();
+		if (menu) {
+			drawMenu();
+		}
+		else {
+			drawBoard();
+			drawNumbers();
+		}
 
         IwGxFlush();
         IwGxSwapBuffers();

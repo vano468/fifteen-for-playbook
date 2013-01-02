@@ -105,3 +105,8 @@ void gameInit() {
 void gameKill() {
 	delete game;
 }
+
+void drawMenu()
+{
+	IwGxPrintString(50, 50, "CLICK");
+}

@@ -17,6 +17,7 @@ void gameInit();
 void gameKill();
 void drawBoard();
 void drawNumbers();
+void drawMenu();
 boardCell getBoardCellByCoord(int32, int32);
 
 #endif //DESIGN_H
