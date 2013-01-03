@@ -1,7 +1,8 @@
 #include "fControl.h"
 
 fControl::fControl() {
-
+	state = STATE_MENU;
+	menuView.setParent(this);
 }
 
 fControl::~fControl() {
@@ -11,6 +12,11 @@ fControl::~fControl() {
 void fControl::viewInit() {
 	IwGxInit();
     IwGxSetColClear(0, 0, 0xff, 0xff);
+	app = CreateApp();
+	window = CreateWindow();
+	app->AddWindow(window);
+	view1 = CreateView("canvas");
+	view2 = CreateView("canvas");
 }
 
 void fControl::viewClear() {
@@ -65,8 +71,8 @@ boardCell fControl::getBoardCellByCoord(int32 x, int32 y) {
 
 void fControl::drawView()
 {
-	if (game.getState() == STATE_MENU)
+	if (state == STATE_MENU)
 		menuView.draw();
-	if (game.getState() == STATE_GAME)
+	if (state == STATE_GAME)
 		gameView.draw(&game);
 }

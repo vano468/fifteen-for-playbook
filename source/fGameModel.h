@@ -6,7 +6,6 @@ class fGameModel {
 	int gameBoard[BOARD_SIZE][BOARD_SIZE];
 	int emptyX;
 	int emptyY;
-	int state;
 
 	void moveEmptyLeft();
 	void moveEmptyRight();
@@ -19,5 +18,4 @@ public:
 	
 	void randomizeGameBoard();
 	int getGameBoardNum(int, int);
-	int getState() const {return state;}
 };

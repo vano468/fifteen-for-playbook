@@ -5,6 +5,9 @@
 #include "fMenuView.h"
 #include "s3e.h"
 #include "IwGx.h"
+#include "IwNUI.h"
+
+using namespace IwNUI;
 
 struct boardCell {
 	int x;
@@ -26,6 +29,15 @@ public:
 
 	void drawView();
 
+	CAppPtr app;
+	CWindowPtr window;
+	CViewPtr view1;
+	CViewPtr view2;
+
+	int state;
+
 	boardCell getBoardCellByCoord(int32, int32);
+
 };
+
 

@@ -13,11 +13,18 @@ files
     fMenuView.h
 }
 
+defines
+{
+	IW_GXFONT_TTF
+}
+
 subprojects
 {
     iwgx
 	iwresmanager
 	iwui
+	iwnui
+	iwgxfont
 }
 
 deployments
