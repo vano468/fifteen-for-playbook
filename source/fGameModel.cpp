@@ -1,8 +1,8 @@
-#include "game.h"
+#include "fGameModel.h"
 #include <cstdlib>
 #include <ctime>
 
-Fifteen::Fifteen() {
+fGameModel::fGameModel() {
 	int k = 1;
 	for (int y = 0; y < BOARD_SIZE; ++y)
 		for (int x = 0; x < BOARD_SIZE; ++x)
@@ -10,18 +10,17 @@ Fifteen::Fifteen() {
 	gameBoard[BOARD_SIZE-1][BOARD_SIZE-1] = 0;
 	emptyX = emptyY = BOARD_SIZE - 1;
 	randomizeGameBoard();
-	state = STATE_MENU;
 }
 
-Fifteen::~Fifteen() {
+fGameModel::~fGameModel() {
 
 }
 
-int Fifteen::getGameBoardNum(int x, int y) {
+int fGameModel::getGameBoardNum(int x, int y) {
 	return gameBoard[x][y];
 }
 
-void Fifteen::moveEmptyLeft() {
+void fGameModel::moveEmptyLeft() {
 	if (emptyX > 0) {
 		gameBoard[emptyY][emptyX] = gameBoard[emptyY][emptyX - 1];
 		gameBoard[emptyY][emptyX - 1] = 0;
@@ -29,7 +28,7 @@ void Fifteen::moveEmptyLeft() {
 	}
 }
 
-void Fifteen::moveEmptyRight() {
+void fGameModel::moveEmptyRight() {
 	if (emptyX < BOARD_SIZE - 1) {
 		gameBoard[emptyY][emptyX] = gameBoard[emptyY][emptyX + 1];
 		gameBoard[emptyY][emptyX + 1] = 0;
@@ -37,7 +36,7 @@ void Fifteen::moveEmptyRight() {
 	}
 }
 
-void Fifteen::moveEmptyUp() {
+void fGameModel::moveEmptyUp() {
 	if (emptyY > 0) {
 		gameBoard[emptyY][emptyX] = gameBoard[emptyY - 1][emptyX];
 		gameBoard[emptyY - 1][emptyX] = 0;
@@ -45,7 +44,7 @@ void Fifteen::moveEmptyUp() {
 	}
 }
 
-void Fifteen::moveEmptyDown() {
+void fGameModel::moveEmptyDown() {
 	if (emptyY < BOARD_SIZE - 1) {
 		gameBoard[emptyY][emptyX] = gameBoard[emptyY + 1][emptyX];
 		gameBoard[emptyY + 1][emptyX] = 0;
@@ -53,9 +52,9 @@ void Fifteen::moveEmptyDown() {
 	}
 }
 
-void Fifteen::randomizeGameBoard() {
+void fGameModel::randomizeGameBoard() {
 	srand(time(0));
-	for(int i = 0; i < 20000; i++) {
+	for (int i = 0; i < 20000; ++i) {
 		int mode = 1 + rand() % 4;
 		switch(mode) {
 			case 1: moveEmptyUp();    break;

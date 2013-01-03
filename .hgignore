@@ -1,5 +1,3 @@
 syntax: glob
-Debug**/**
-Release**/**
-**.user**
 build_fifteen_vc10/*
+data-ram/*
