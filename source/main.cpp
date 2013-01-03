@@ -27,8 +27,7 @@ int main() {
 
 		s3ePointerRegister(S3E_POINTER_BUTTON_EVENT, (s3eCallback)SingleTouchButtonCB, NULL);
 
-		gameControl.drawBoard();
-		gameControl.drawNumbers();
+		gameControl.drawView();
 
 		gameControl.viewFlush();
     }

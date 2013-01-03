@@ -27,14 +27,6 @@ void fControl::viewKill() {
 	IwGxTerminate();
 }
 
-void fControl::drawBoard() {
-	view.drawBoard();
-}
-
-void fControl::drawNumbers() {
-	view.drawNumbers(&game);
-}
-
 boardCell fControl::getBoardCellByCoord(int32 x, int32 y) {
 	int16 sFaceWidth  = (int16)s3eSurfaceGetInt(S3E_SURFACE_WIDTH);
 	int16 sFaceHeight = (int16)s3eSurfaceGetInt(S3E_SURFACE_HEIGHT);
@@ -69,4 +61,12 @@ boardCell fControl::getBoardCellByCoord(int32 x, int32 y) {
 		curCell.x = curCell.y = -1;
 
 	return curCell;
+}
+
+void fControl::drawView()
+{
+	if (game.getState() == STATE_MENU)
+		menuView.draw();
+	if (game.getState() == STATE_GAME)
+		gameView.draw(&game);
 }

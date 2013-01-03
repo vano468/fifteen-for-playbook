@@ -6,11 +6,11 @@
 #include "IwGx.h"
 
 class fGameView {
-	
+	void drawBoard();
+	void drawNumbers(fGameModel *game);
 public:
 	fGameView();
 	~fGameView();
 
-	void drawBoard();
-	void drawNumbers(fGameModel *game);
+	void draw(fGameModel *game);
 };

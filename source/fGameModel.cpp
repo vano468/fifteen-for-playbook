@@ -10,6 +10,7 @@ fGameModel::fGameModel() {
 	gameBoard[BOARD_SIZE-1][BOARD_SIZE-1] = 0;
 	emptyX = emptyY = BOARD_SIZE - 1;
 	randomizeGameBoard();
+	state = STATE_GAME;
 }
 
 fGameModel::~fGameModel() {

@@ -2,6 +2,7 @@
 
 #include "fGameView.h"
 #include "fGameModel.h"
+#include "fMenuView.h"
 #include "s3e.h"
 #include "IwGx.h"
 
@@ -12,8 +13,8 @@ struct boardCell {
 
 class fControl {
 	fGameModel game;
-	fGameView view;
-
+	fGameView gameView;
+	fMenuView menuView;
 public:
 	fControl();
 	~fControl();
@@ -23,8 +24,7 @@ public:
 	void viewFlush();
 	void viewKill();
 
-	void drawBoard();
-	void drawNumbers();
+	void drawView();
 
 	boardCell getBoardCellByCoord(int32, int32);
 };

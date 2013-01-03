@@ -70,5 +70,11 @@ void fGameView::drawNumbers(fGameModel *game) {
 		}
 }
 
+void fGameView::draw( fGameModel *game )
+{
+	drawBoard();
+	drawNumbers(game);
+}
+
 
 
