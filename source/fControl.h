@@ -1,43 +1,34 @@
 #pragma once
 
-#include "fGameView.h"
 #include "fGameModel.h"
-#include "fMenuView.h"
-#include "s3e.h"
-#include "IwGx.h"
 #include "IwNUI.h"
+#include <vector>
 
 using namespace IwNUI;
 
-struct boardCell {
-	int x;
-	int y;
-};
-
 class fControl {
 	fGameModel game;
-	fGameView gameView;
-	fMenuView menuView;
-public:
-	fControl();
-	~fControl();
-	
-	void viewInit();
-	void viewClear();
-	void viewFlush();
-	void viewKill();
-
-	void drawView();
 
 	CAppPtr app;
 	CWindowPtr window;
-	CViewPtr view1;
-	CViewPtr view2;
+	CViewPtr viewMenu;
+	CViewPtr viewGame;
 
-	int state;
+	CButtonPtr buttonStart;
 
-	boardCell getBoardCellByCoord(int32, int32);
+	CTablePtr table;
+	std::vector<CTableItemPtr> m_tableRows;
 
+	void InitNUI();
+	void InitMenu();
+	void InitGame();
+public:
+	fControl();
+	~fControl();
+
+	void InitApp();
+
+	bool onButtonStartClick();
 };
 
 

@@ -1,78 +1,75 @@
 #include "fControl.h"
 
 fControl::fControl() {
-	state = STATE_MENU;
-	menuView.setParent(this);
+
 }
 
 fControl::~fControl() {
 
 }
 
-void fControl::viewInit() {
-	IwGxInit();
-    IwGxSetColClear(0, 0, 0xff, 0xff);
+void fControl::InitNUI()
+{
 	app = CreateApp();
 	window = CreateWindow();
 	app->AddWindow(window);
-	view1 = CreateView("canvas");
-	view2 = CreateView("canvas");
+	viewMenu = CreateView("canvas");
+	viewGame = CreateView("canvas");
 }
 
-void fControl::viewClear() {
-	IwGxClear();
-}
-
-void fControl::viewFlush() {
-	IwGxFlush();
-	IwGxSwapBuffers();
-	s3eDeviceYield(0);	
-}
-
-void fControl::viewKill() {
-	IwGxTerminate();
-}
-
-boardCell fControl::getBoardCellByCoord(int32 x, int32 y) {
-	int16 sFaceWidth  = (int16)s3eSurfaceGetInt(S3E_SURFACE_WIDTH);
-	int16 sFaceHeight = (int16)s3eSurfaceGetInt(S3E_SURFACE_HEIGHT);
-
-	int boardCellCount = BOARD_SIZE;
-
-	int16 boardSize = sFaceHeight > sFaceWidth ? sFaceWidth : sFaceHeight;
-	while (boardSize % 8) --boardSize; // stupid
-
-	int16 emptySpaceHeight = (sFaceHeight - boardSize) / 2;
-	int16 emptySpaceWidth  = (sFaceWidth  - boardSize) / 2;
-
-	int16 tempCellHeight = y - emptySpaceHeight;
-	int16 tempCellWidth  = x - emptySpaceWidth;
-	int16 cellSize = boardSize / boardCellCount;
-
-	boardCell curCell;
-	curCell.x = -1; 
-	curCell.y = -1;
-
-	if (tempCellHeight < 0 || tempCellWidth <0) return curCell;
-
-	// stupid
-	for (int i = 0; i < BOARD_SIZE; ++i) {
-		tempCellHeight -= cellSize;
-		tempCellWidth  -= cellSize;
-		if (tempCellHeight < 0 && curCell.y < 0) curCell.y = i;
-		if (tempCellWidth  < 0 && curCell.x < 0) curCell.x = i;
-	}
-
-	if (curCell.x < 0 || curCell.y < 0) 
-		curCell.x = curCell.y = -1;
-
-	return curCell;
-}
-
-void fControl::drawView()
+void fControl::InitMenu()
 {
-	if (state == STATE_MENU)
-		menuView.draw();
-	if (state == STATE_GAME)
-		gameView.draw(&game);
+	buttonStart = CreateButton(CAttributes()
+		.Set("name", "button1")
+		.Set("caption", "Start!")
+		.Set("x1", "50")
+		.Set("y1", "50"));
+	buttonStart->SetEventHandler("click", this, &fControl::onButtonStartClick);
+
+	viewMenu->AddChild(buttonStart);
+	window->SetChild(viewMenu);
+	app->ShowWindow(window);
+}
+
+bool fControl::onButtonStartClick( )
+{
+	window->SetChild(viewGame);
+	return true;
+}
+
+void fControl::InitGame()
+{
+	table = CreateTable(CAttributes()
+						.Set("name", "table")
+						.Set("x1", "25%")
+						.Set("width", "50%")
+						.Set("x2", "25%")
+						.Set("height", "100%"));
+	for (int i = 0; i < BOARD_SIZE; ++i) {
+		CTableItemPtr ti = CreateTableItem(CAttributes()
+							 .Set("width", "100%")
+							 .Set("height", "25%"));
+		for (int j = 0; j < BOARD_SIZE; ++j) {
+			char num[0xff];
+			sprintf(num, "%d", game.getGameBoardNum(i, j));
+			char x1[0xff];
+			sprintf(x1, "%d%%", j*25);
+			CLabelPtr label = CreateLabel(CAttributes()
+								.Set("caption", num)
+								.Set("width", "25%")
+								.Set("x1", x1));
+			ti->AddChild(label);
+		}
+		table->AddChild(ti);
+		m_tableRows.push_back(ti);
+	}
+	viewGame->AddChild(table);
+}
+
+void fControl::InitApp()
+{
+	InitNUI();
+	InitMenu();
+	InitGame();
+	app->Run();
 }

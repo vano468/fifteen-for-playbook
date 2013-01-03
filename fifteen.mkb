@@ -7,10 +7,6 @@ files
     fControl.h
     fGameModel.cpp
     fGameModel.h
-    fGameView.cpp
-    fGameView.h
-    fMenuView.cpp
-    fMenuView.h
 }
 
 defines
