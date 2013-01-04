@@ -61,11 +61,13 @@ void fControl::InitGame()
 			sprintf(numChar, "%d", numInt);
 			if (numInt) {
 				CButtonPtr button = CreateButton(CAttributes()
-					.Set("x1", x)
-					.Set("y1", y)
-					.Set("width",  cellSize)
-					.Set("height", cellSize)
-					.Set("caption", numChar));
+											 	 .Set("x1", x)
+												 .Set("y1", y)
+												 .Set("width",  cellSize)
+												 .Set("height", cellSize)
+												 .Set("caption", numChar));
+				gameButtons[i][j] = button;
+				button->SetEventHandler("click", this, &fControl::onButtonGameClick);
 				viewGame->AddChild(button);
 			} 
 		}
@@ -77,4 +79,23 @@ void fControl::InitApp()
 	InitMenu();
 	InitGame();
 	app->Run();
+}
+
+bool fControl::onButtonGameClick(CButton* _button)
+{
+	for (int i = 0; i < BOARD_SIZE; ++i)
+		for (int j = 0; j < BOARD_SIZE; ++j) {
+			if (game.getGameBoardNum(i, j)) {
+				CString attr1;
+				CString attr2;
+				_button->GetAttribute("caption", attr1);
+				gameButtons[i][j]->GetAttribute("caption", attr2);
+				if (attr1 == attr2) {
+					clickedX = i;
+					clickedY = j;
+					return true;
+				}
+			}
+		}
+	return true;
 }

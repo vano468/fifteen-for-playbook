@@ -2,7 +2,6 @@
 
 #include "fGameModel.h"
 #include "IwNUI.h"
-#include <vector>
 
 using namespace IwNUI;
 
@@ -16,6 +15,11 @@ class fControl {
 
 	CButtonPtr buttonStart;
 
+	CButtonPtr gameButtons[BOARD_SIZE][BOARD_SIZE];
+
+	int clickedX;
+	int clickedY;
+
 	void InitNUI();
 	void InitMenu();
 	void InitGame();
@@ -27,6 +31,7 @@ public:
 	void InitApp();
 
 	bool onButtonStartClick();
+	bool onButtonGameClick(CButton* _button);
 };
 
 
