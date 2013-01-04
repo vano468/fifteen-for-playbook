@@ -23,8 +23,12 @@ void fControl::InitMenu()
 	buttonStart = CreateButton(CAttributes()
 		.Set("name", "button1")
 		.Set("caption", "Start!")
-		.Set("x1", "50")
-		.Set("y1", "50"));
+		.Set("x1", "50%")
+		.Set("y1", "50%")
+		.Set("width", "20%")
+		.Set("height", "10%")
+		.Set("alignW", "centre")
+		.Set("alignH", "centre"));
 	buttonStart->SetEventHandler("click", this, &fControl::onButtonStartClick);
 
 	viewMenu->AddChild(buttonStart);
