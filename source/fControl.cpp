@@ -1,4 +1,5 @@
 #include "fControl.h"
+#include "IwGx.h"
 
 fControl::fControl() {
 
@@ -39,31 +40,35 @@ bool fControl::onButtonStartClick( )
 
 void fControl::InitGame()
 {
-	table = CreateTable(CAttributes()
-						.Set("name", "table")
-						.Set("x1", "25%")
-						.Set("width", "50%")
-						.Set("x2", "25%")
-						.Set("height", "100%"));
-	for (int i = 0; i < BOARD_SIZE; ++i) {
-		CTableItemPtr ti = CreateTableItem(CAttributes()
-							 .Set("width", "100%")
-							 .Set("height", "25%"));
-		for (int j = 0; j < BOARD_SIZE; ++j) {
-			char num[0xff];
-			sprintf(num, "%d", game.getGameBoardNum(i, j));
-			char x1[0xff];
-			sprintf(x1, "%d%%", j*25);
-			CLabelPtr label = CreateLabel(CAttributes()
-								.Set("caption", num)
-								.Set("width", "25%")
-								.Set("x1", x1));
-			ti->AddChild(label);
+	for (int i = viewGame->GetNumChildren() - 1; i >= 0; ++i)
+		viewGame->RemoveChild(viewGame->GetChild(i));
+	
+	int sFaceWidth  = (int)s3eSurfaceGetInt(S3E_SURFACE_WIDTH);
+	int sFaceHeight = (int)s3eSurfaceGetInt(S3E_SURFACE_HEIGHT);
+
+	int boardSize = sFaceHeight > sFaceWidth ? sFaceWidth : sFaceHeight;
+	while (boardSize % 8) --boardSize; // stupid
+
+	int emptySpaceHeight = (sFaceHeight - boardSize) / 2;
+	int emptySpaceWidth  = (sFaceWidth  - boardSize) / 2;
+
+	int cellSize = boardSize / BOARD_SIZE;
+
+	for (int j = 0, y = emptySpaceHeight; j < BOARD_SIZE; ++j, y += cellSize)
+		for (int i = 0, x = emptySpaceWidth; i < BOARD_SIZE; ++i, x += cellSize) {
+			int  numInt = game.getGameBoardNum(i, j);
+			char numChar[0xff];
+			sprintf(numChar, "%d", numInt);
+			if (numInt) {
+				CButtonPtr button = CreateButton(CAttributes()
+					.Set("x1", x)
+					.Set("y1", y)
+					.Set("width",  cellSize)
+					.Set("height", cellSize)
+					.Set("caption", numChar));
+				viewGame->AddChild(button);
+			} 
 		}
-		table->AddChild(ti);
-		m_tableRows.push_back(ti);
-	}
-	viewGame->AddChild(table);
 }
 
 void fControl::InitApp()

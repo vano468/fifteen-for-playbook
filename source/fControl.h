@@ -16,12 +16,10 @@ class fControl {
 
 	CButtonPtr buttonStart;
 
-	CTablePtr table;
-	std::vector<CTableItemPtr> m_tableRows;
-
 	void InitNUI();
 	void InitMenu();
 	void InitGame();
+
 public:
 	fControl();
 	~fControl();

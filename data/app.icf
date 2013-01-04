@@ -6,4 +6,4 @@ SplashscreenBkB=255
 MemSize = 1000000 
 
 [GX]
-DataCacheSize=32768
+DataCacheSize=65536
