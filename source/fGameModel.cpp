@@ -84,3 +84,11 @@ bool fGameModel::setMove(int x, int y) {
 	}
 	return false;
 }
+
+int fGameModel::getEmptyX() {
+	return emptyX;
+}
+
+int fGameModel::getEmptyY() {
+	return emptyY;
+}

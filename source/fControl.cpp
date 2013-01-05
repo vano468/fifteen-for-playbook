@@ -20,7 +20,7 @@ void fControl::InitNUI() {
 void fControl::InitMenu() {
 	buttonStart = CreateButton(CAttributes()
 		.Set("name", "button1")
-		.Set("caption", "Start!")
+		.Set("caption", "start")
 		.Set("x1", "50%")
 		.Set("y1", "50%")
 		.Set("width", "20%")
@@ -59,18 +59,18 @@ void fControl::InitGame() {
 			int  numInt = game.getGameBoardNum(i, j);
 			char numChar[0xff];
 			sprintf(numChar, "%d", numInt);
-			if (1) {
-				CButtonPtr button = CreateButton(CAttributes()
-					.Set("x1", x)
-					.Set("y1", y)
-					.Set("width",  cellSize)
-					.Set("height", cellSize)
-					.Set("caption", numChar));
-				gameButtons[i][j] = button;
-				button->SetEventHandler("click", this, &fControl::onButtonGameClick);
-				viewGame->AddChild(button);
-			} 
+
+			CButtonPtr button = CreateButton(CAttributes()
+				.Set("x1", x)
+				.Set("y1", y)
+				.Set("width",  cellSize)
+				.Set("height", cellSize)
+				.Set("caption", numChar));
+			gameButtons[i][j] = button;
+			button->SetEventHandler("click", this, &fControl::onButtonGameClick);
+			viewGame->AddChild(button);
 		}
+	gameButtons[game.getEmptyY()][game.getEmptyX()]->SetAttribute("visible", false);
 }
 
 void fControl::InitApp() {
@@ -104,6 +104,9 @@ void fControl::makeMove(int x, int y) {
 
 void fControl::renameButtons() {
 	for (int i = 0; i < BOARD_SIZE; ++i)
-		for (int j = 0; j < BOARD_SIZE; ++j)
+		for (int j = 0; j < BOARD_SIZE; ++j) {
 			gameButtons[i][j]->SetAttribute("caption", game.getGameBoardNum(i, j));
+			gameButtons[i][j]->SetAttribute("visible", true);
+		}
+	gameButtons[game.getEmptyY()][game.getEmptyX()]->SetAttribute("visible", false);
 }

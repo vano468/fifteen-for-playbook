@@ -19,4 +19,7 @@ public:
 	void randomizeGameBoard();
 	bool setMove(int, int);
 	int getGameBoardNum(int, int);
+
+	int getEmptyX();
+	int getEmptyY();
 };
