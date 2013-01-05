@@ -14,15 +14,14 @@ class fControl {
 	CViewPtr viewGame;
 
 	CButtonPtr buttonStart;
-
 	CButtonPtr gameButtons[BOARD_SIZE][BOARD_SIZE];
-
-	int clickedX;
-	int clickedY;
 
 	void InitNUI();
 	void InitMenu();
 	void InitGame();
+
+	void makeMove(int, int);
+	void renameButtons();
 
 public:
 	fControl();
@@ -31,7 +30,7 @@ public:
 	void InitApp();
 
 	bool onButtonStartClick();
-	bool onButtonGameClick(CButton* _button);
+	bool onButtonGameClick(CButton*);
 };
 
 

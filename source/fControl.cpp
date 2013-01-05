@@ -9,8 +9,7 @@ fControl::~fControl() {
 
 }
 
-void fControl::InitNUI()
-{
+void fControl::InitNUI() {
 	app = CreateApp();
 	window = CreateWindow();
 	app->AddWindow(window);
@@ -18,8 +17,7 @@ void fControl::InitNUI()
 	viewGame = CreateView("canvas");
 }
 
-void fControl::InitMenu()
-{
+void fControl::InitMenu() {
 	buttonStart = CreateButton(CAttributes()
 		.Set("name", "button1")
 		.Set("caption", "Start!")
@@ -32,14 +30,12 @@ void fControl::InitMenu()
 	app->ShowWindow(window);
 }
 
-bool fControl::onButtonStartClick( )
-{
+bool fControl::onButtonStartClick() {
 	window->SetChild(viewGame);
 	return true;
 }
 
-void fControl::InitGame()
-{
+void fControl::InitGame() {
 	for (int i = viewGame->GetNumChildren() - 1; i >= 0; ++i)
 		viewGame->RemoveChild(viewGame->GetChild(i));
 	
@@ -59,13 +55,13 @@ void fControl::InitGame()
 			int  numInt = game.getGameBoardNum(i, j);
 			char numChar[0xff];
 			sprintf(numChar, "%d", numInt);
-			if (numInt) {
+			if (1) {
 				CButtonPtr button = CreateButton(CAttributes()
-											 	 .Set("x1", x)
-												 .Set("y1", y)
-												 .Set("width",  cellSize)
-												 .Set("height", cellSize)
-												 .Set("caption", numChar));
+					.Set("x1", x)
+					.Set("y1", y)
+					.Set("width",  cellSize)
+					.Set("height", cellSize)
+					.Set("caption", numChar));
 				gameButtons[i][j] = button;
 				button->SetEventHandler("click", this, &fControl::onButtonGameClick);
 				viewGame->AddChild(button);
@@ -73,16 +69,14 @@ void fControl::InitGame()
 		}
 }
 
-void fControl::InitApp()
-{
+void fControl::InitApp() {
 	InitNUI();
 	InitMenu();
 	InitGame();
 	app->Run();
 }
 
-bool fControl::onButtonGameClick(CButton* _button)
-{
+bool fControl::onButtonGameClick(CButton* _button) {
 	for (int i = 0; i < BOARD_SIZE; ++i)
 		for (int j = 0; j < BOARD_SIZE; ++j) {
 			if (game.getGameBoardNum(i, j)) {
@@ -91,11 +85,21 @@ bool fControl::onButtonGameClick(CButton* _button)
 				_button->GetAttribute("caption", attr1);
 				gameButtons[i][j]->GetAttribute("caption", attr2);
 				if (attr1 == attr2) {
-					clickedX = i;
-					clickedY = j;
+					makeMove(i, j);
 					return true;
 				}
 			}
 		}
 	return true;
+}
+
+void fControl::makeMove(int x, int y) {
+	if (game.setMove(x, y))
+		renameButtons();
+}
+
+void fControl::renameButtons() {
+	for (int i = 0; i < BOARD_SIZE; ++i)
+		for (int j = 0; j < BOARD_SIZE; ++j)
+			gameButtons[i][j]->SetAttribute("caption", game.getGameBoardNum(i, j));
 }

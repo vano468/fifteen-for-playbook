@@ -21,22 +21,6 @@ int fGameModel::getGameBoardNum(int x, int y) {
 }
 
 void fGameModel::moveEmptyLeft() {
-	if (emptyX > 0) {
-		gameBoard[emptyY][emptyX] = gameBoard[emptyY][emptyX - 1];
-		gameBoard[emptyY][emptyX - 1] = 0;
-		emptyX--;
-	}
-}
-
-void fGameModel::moveEmptyRight() {
-	if (emptyX < BOARD_SIZE - 1) {
-		gameBoard[emptyY][emptyX] = gameBoard[emptyY][emptyX + 1];
-		gameBoard[emptyY][emptyX + 1] = 0;
-		emptyX++;
-	}
-}
-
-void fGameModel::moveEmptyUp() {
 	if (emptyY > 0) {
 		gameBoard[emptyY][emptyX] = gameBoard[emptyY - 1][emptyX];
 		gameBoard[emptyY - 1][emptyX] = 0;
@@ -44,7 +28,7 @@ void fGameModel::moveEmptyUp() {
 	}
 }
 
-void fGameModel::moveEmptyDown() {
+void fGameModel::moveEmptyRight() {
 	if (emptyY < BOARD_SIZE - 1) {
 		gameBoard[emptyY][emptyX] = gameBoard[emptyY + 1][emptyX];
 		gameBoard[emptyY + 1][emptyX] = 0;
@@ -52,9 +36,25 @@ void fGameModel::moveEmptyDown() {
 	}
 }
 
+void fGameModel::moveEmptyUp() {
+	if (emptyX > 0) {
+		gameBoard[emptyY][emptyX] = gameBoard[emptyY][emptyX - 1];
+		gameBoard[emptyY][emptyX - 1] = 0;
+		emptyX--;
+	}
+}
+
+void fGameModel::moveEmptyDown() {
+	if (emptyX < BOARD_SIZE - 1) {
+		gameBoard[emptyY][emptyX] = gameBoard[emptyY][emptyX + 1];
+		gameBoard[emptyY][emptyX + 1] = 0;
+		emptyX++;
+	}
+}
+
 void fGameModel::randomizeGameBoard() {
 	srand(time(0));
-	for (int i = 0; i < 20000; ++i) {
+	for (int i = 0; i < RANDOM_COUNT; ++i) {
 		int mode = 1 + rand() % 4;
 		switch(mode) {
 			case 1: moveEmptyUp();    break;
@@ -63,4 +63,24 @@ void fGameModel::randomizeGameBoard() {
 			case 4: moveEmptyRight(); break;
 		}
 	}
+}
+
+bool fGameModel::setMove(int x, int y) {
+	if (y > 0 && !gameBoard[x][y-1]) {
+		moveEmptyDown();
+		return true;
+	}
+	if (y < BOARD_SIZE - 1 && !gameBoard[x][y+1]) {
+		moveEmptyUp();
+		return true;
+	}
+	if (x > 0 && !gameBoard[x-1][y]) {
+		moveEmptyRight();
+		return true;
+	}
+	if (x < BOARD_SIZE-1 && !gameBoard[x+1][y]) {
+		moveEmptyLeft();
+		return true;
+	}
+	return false;
 }

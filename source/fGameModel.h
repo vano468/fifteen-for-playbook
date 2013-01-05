@@ -17,5 +17,6 @@ public:
 	~fGameModel();
 	
 	void randomizeGameBoard();
+	bool setMove(int, int);
 	int getGameBoardNum(int, int);
 };
