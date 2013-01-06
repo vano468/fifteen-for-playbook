@@ -12,6 +12,7 @@ class fControl {
 	CWindowPtr window;
 	CViewPtr viewMenu;
 	CViewPtr viewGame;
+	CViewPtr viewOver;
 
 	CButtonPtr buttonStart;
 	CButtonPtr gameButtons[BOARD_SIZE][BOARD_SIZE];
@@ -19,6 +20,7 @@ class fControl {
 	void InitNUI();
 	void InitMenu();
 	void InitGame();
+	void InitOver();
 
 	void makeMove(int, int);
 	void renameButtons();

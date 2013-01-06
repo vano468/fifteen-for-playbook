@@ -1,3 +1,4 @@
 syntax: glob
-build_fifteen_vc10/*
+build_fifteenmurad_vc10/*
 data-ram/*
+*.bak

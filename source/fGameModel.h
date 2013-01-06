@@ -19,6 +19,7 @@ public:
 	void randomizeGameBoard();
 	bool setMove(int, int);
 	int getGameBoardNum(int, int);
+	bool isOver();
 
 	int getEmptyX();
 	int getEmptyY();

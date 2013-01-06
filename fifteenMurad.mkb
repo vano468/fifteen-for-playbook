@@ -19,29 +19,16 @@ subprojects
 {
     iwgx
     iwresmanager
-    iwu
+    iwui
     iwnui
     iwgxfont
 }
 
-deployments
-{
-	["Playbook application"]
-	playbook
-	playbook-author='Murad Yusufov'
-	playbook-authorid='gYAAgDrE1y2ugvBCHUGCDiTYNgE'
-}
 #### AUTO GENERATED deployment settings from DeployTool.exe. Do not edit below this line ####
 deployments
 {
 	["Default"]
-	["Playbook application"]
 	caption='Fifteen'
-	playbook-author='{Murad Yusufov}'
-	provider='Murad Yusufov'
-	["application"]
-	caption='Fifteen'
-	playbook-author='Murad Yusufov'
-	playbook-authorid='gYAAgDrE1y2ugvBCHUGCDiTYNgE'
-	provider='Murad Yusufov'
+	blackberry-author='{Murad Yusufov}'
+	blackberry-authorid='gYAAgDrE1y2ugvBCHUGCDiTYNgE'
 }

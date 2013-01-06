@@ -13,11 +13,10 @@ void fControl::InitNUI() {
 	app = CreateApp();
 	window = CreateWindow();
 	app->AddWindow(window);
-	viewMenu = CreateView("canvas");
-	viewGame = CreateView("canvas");
 }
 
 void fControl::InitMenu() {
+	viewMenu = CreateView("canvas");
 	buttonStart = CreateButton(CAttributes()
 		.Set("name", "button1")
 		.Set("caption", "start")
@@ -36,10 +35,14 @@ void fControl::InitMenu() {
 
 bool fControl::onButtonStartClick() {
 	window->SetChild(viewGame);
+	game.randomizeGameBoard();
+	renameButtons();
 	return true;
 }
 
 void fControl::InitGame() {
+	viewGame = CreateView("canvas");
+
 	for (int i = viewGame->GetNumChildren() - 1; i >= 0; ++i)
 		viewGame->RemoveChild(viewGame->GetChild(i));
 	
@@ -79,6 +82,7 @@ void fControl::InitApp() {
 	InitNUI();
 	InitMenu();
 	InitGame();
+	InitOver();
 	app->Run();
 }
 
@@ -92,6 +96,8 @@ bool fControl::onButtonGameClick(CButton* _button) {
 				gameButtons[i][j]->GetAttribute("caption", attr2);
 				if (attr1 == attr2) {
 					makeMove(i, j);
+					if (game.isOver())
+						window->SetChild(viewOver);
 					return true;
 				}
 			}
@@ -111,4 +117,28 @@ void fControl::renameButtons() {
 			gameButtons[i][j]->SetAttribute("visible", true);
 		}
 	gameButtons[game.getEmptyY()][game.getEmptyX()]->SetAttribute("visible", false);
+}
+
+void fControl::InitOver() {
+	viewOver = CreateView();
+	CLabelPtr label = CreateLabel(CAttributes()
+								  .Set("caption", "Congratulations!")
+								  .Set("x1", "50%")
+								  .Set("y1", "25%")
+								  .Set("width", "25%")
+								  .Set("height", "10%")
+								  .Set("alignW", "centre")
+								  .Set("alignH", "centre"));
+	CButtonPtr button = CreateButton(CAttributes()
+									.Set("name", "button1")
+									.Set("caption", "start")
+									.Set("x1", "50%")
+									.Set("y1", "50%")
+									.Set("width", "20%")
+									.Set("height", "10%")
+									.Set("alignW", "centre")
+									.Set("alignH", "centre"));
+	button->SetEventHandler("click", this, &fControl::onButtonStartClick);
+	viewOver->AddChild(button);
+	viewOver->AddChild(label);
 }

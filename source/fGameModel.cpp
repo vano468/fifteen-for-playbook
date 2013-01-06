@@ -92,3 +92,14 @@ int fGameModel::getEmptyX() {
 int fGameModel::getEmptyY() {
 	return emptyY;
 }
+
+bool fGameModel::isOver() {
+	for (int i = 0; i < BOARD_SIZE; ++i)
+		for (int j = 0; j < BOARD_SIZE; ++j) {
+			if (i == 3 && j == 3)
+				return true;
+			if (i*BOARD_SIZE + j + 1 != gameBoard[j][i])
+				return false;
+		}
+	return true;
+}
