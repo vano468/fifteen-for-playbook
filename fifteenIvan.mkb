@@ -1,0 +1,32 @@
+files
+{
+    (source)
+    main.cpp
+    definitions.h
+    fControl.cpp
+    fControl.h
+    fGameModel.cpp
+    fGameModel.h
+}
+
+defines
+{
+	IW_GXFONT_TTF
+	IW_USE_LEGACY_MODULES
+}
+
+subprojects
+{
+    iwgx
+    iwresmanager
+    iwui
+    iwnui
+    iwgxfont
+}
+
+deployments
+{
+        caption='Fifteen'
+	playbook-author='Ivan Kornilov'
+	playbook-authorid='gYAAgBeQ8uIAz_P_Dgj79FZYC1U'
+}

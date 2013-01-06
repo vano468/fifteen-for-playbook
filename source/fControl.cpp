@@ -43,6 +43,8 @@ void fControl::InitGame() {
 	for (int i = viewGame->GetNumChildren() - 1; i >= 0; ++i)
 		viewGame->RemoveChild(viewGame->GetChild(i));
 	
+	s3eSurfaceSetInt(S3E_SURFACE_DEVICE_ORIENTATION_LOCK, S3E_SURFACE_LANDSCAPE_FIXED);
+
 	int sFaceWidth  = (int)s3eSurfaceGetInt(S3E_SURFACE_WIDTH);
 	int sFaceHeight = (int)s3eSurfaceGetInt(S3E_SURFACE_HEIGHT);
 
@@ -65,7 +67,7 @@ void fControl::InitGame() {
 				.Set("y1", y)
 				.Set("width",  cellSize)
 				.Set("height", cellSize)
-				.Set("caption", numChar));
+				.Set("caption", (CString)numChar));
 			gameButtons[i][j] = button;
 			button->SetEventHandler("click", this, &fControl::onButtonGameClick);
 			viewGame->AddChild(button);
